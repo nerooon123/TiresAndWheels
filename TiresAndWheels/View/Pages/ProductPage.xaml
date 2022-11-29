@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="SearchTextBox" Text="Введите наименование продукта" Grid.Column="0" GotFocus="SearchTextBoxGotFocus"/>
+            <TextBox x:Name="SearchTextBox" Text="Введите наименование продукта" Grid.Column="0" GotFocus="SearchTextBoxGotFocus" TextChanged="SearchTextBoxTextChanged"/>
             <ComboBox x:Name="SortComboBox" Grid.Column="1">
                 <ComboBoxItem>
                     <TextBlock Text="По возрастанию"/>
@@ -29,7 +29,7 @@
                     <TextBlock Text="По убыванию"/>
                 </ComboBoxItem>
             </ComboBox>
-            <ComboBox x:Name="FilterComboBox" Grid.Column="2"/>
+            <ComboBox x:Name="FilterComboBox"  Grid.Column="2" SelectedIndex="0" SelectionChanged="FilterComboBoxSelectionChanged"/>
         </Grid>
         <ListView Grid.Row="1" x:Name="ProductListView">
             <ListView.ItemTemplate>
