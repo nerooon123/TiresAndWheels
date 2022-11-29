@@ -26,7 +26,17 @@ namespace TiresAndWheels.View.Pages
         public ProductPage()
         {
             InitializeComponent();
+            productTypes = new List<ProductType> {
+                new ProductType() {
+                    ID = 0,
+                    Title = "Все типы"
+                }
+            };
+            productTypes.AddRange(db.context.ProductType.ToList());
             FilterComboBox.ItemsSource = productTypes;
+            FilterComboBox.DisplayMemberPath = "Title";
+            FilterComboBox.SelectedValuePath = "ID";
+            FilterComboBox.SelectedIndex = 0;
             UpdateUI();
         }
 
@@ -34,7 +44,7 @@ namespace TiresAndWheels.View.Pages
 
         private void UpdateUI()
         {
-            ProductListView.ItemsSource = GetRows().ToList();
+            ProductListView.ItemsSource = GetRows();
 
         }
 
@@ -42,12 +52,30 @@ namespace TiresAndWheels.View.Pages
 
         private List<Product> GetRows()
         {
+            int filter;
             List<Product> arrayProduct = db.context.Product.ToList();
             string searchData = SearchTextBox.Text.ToUpper();
             if (!String.IsNullOrEmpty(SearchTextBox.Text))
             {
-                // arrayProduct = arrayProduct.Where(x => x.Title.ToUpper().Contains(searchData)).ToList();
-                arrayProduct = arrayProduct.Where(x => LeveshteinDistance(x.Title.ToUpper(), searchData) <= 6).ToList();
+                 arrayProduct = arrayProduct.Where(x => x.Title.ToUpper().Contains(searchData)).ToList();
+               // arrayProduct = arrayProduct.Where(x => LeveshteinDistance(x.Title.ToUpper(), searchData) <= 6).ToList();
+            }
+            if (FilterComboBox.SelectedIndex!=0)
+            {
+                filter = Convert.ToInt32(FilterComboBox.SelectedValue);
+            }
+            else
+            {
+                filter = 0;
+            }
+            
+            if (FilterComboBox.SelectedItem!=null && FilterComboBox.SelectedIndex == 0)
+            {
+                arrayProduct = arrayProduct.ToList();
+            }
+            else
+            {
+                arrayProduct = arrayProduct.Where(x => x.ProductTypeID == filter).ToList();
             }
             return arrayProduct;
         }
@@ -100,7 +128,7 @@ namespace TiresAndWheels.View.Pages
 
         private void FilterComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            UpdateUI();
         }
     }
 }
