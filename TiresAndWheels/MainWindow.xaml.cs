@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TiresAndWheels.View.Pages;
 
 namespace TiresAndWheels
 {
@@ -23,6 +24,7 @@ namespace TiresAndWheels
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.NavigationService.Navigate(new ProductPage());
         }
     }
 }
