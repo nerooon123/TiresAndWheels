@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:TiresAndWheels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Courier New"/>
+        </Style>
+        <Style x:Key="LogoTextBox" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="50"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+        </Style>
     </Application.Resources>
 </Application>
